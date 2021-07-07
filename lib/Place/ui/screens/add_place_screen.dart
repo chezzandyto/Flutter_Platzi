@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:platzi_trips_app/Place/model/place.dart';
 import 'package:platzi_trips_app/Place/ui/screens/title_input_location.dart';
 import 'package:platzi_trips_app/Place/ui/widgets/card_image.dart';
+import 'package:platzi_trips_app/User/bloc/bloc_user.dart';
 import 'package:platzi_trips_app/widgets/button_purple.dart';
 import 'package:platzi_trips_app/widgets/gradient_back.dart';
 import 'package:platzi_trips_app/widgets/text_input.dart';
@@ -17,7 +20,6 @@ class AddPlaceScreen extends StatefulWidget {
     // TODO: implement createState
     return _AddPlaceScreen();
 
-    throw UnimplementedError();
   }
 }
 
@@ -25,7 +27,7 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
+    UserBloc userBloc = BlocProvider.of<UserBloc>(context);
     double screenWidth = MediaQuery.of(context).size.width;
 
     final _controllerTitlePlace = TextEditingController();
@@ -109,7 +111,14 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                     onPressed: (){
                       // UPload file to firebase storage
                       // nos devuelve la url de la imagen
-
+                      userBloc.updatePlaceData(Place(
+                          name: _controllerTitlePlace.text,
+                          description: _controllerDescriptionPlace.text,
+                          likes: 0,
+                      )).whenComplete((){
+                        print("TERMINO");
+                        Navigator.pop(context);
+                      });
                     },
                   ),
                 )
@@ -120,6 +129,5 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
       ),
     );
 
-    throw UnimplementedError();
   }
 }
