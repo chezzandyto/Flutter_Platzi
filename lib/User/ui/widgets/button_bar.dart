@@ -37,7 +37,7 @@ class ButtonsBar extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(builder: (BuildContext context) => AddPlaceScreen(image: File(image.path))));
-              }).catchError((onError) => print(onError));
+              }).catchError((onError) => print("E R R O R PICKER IMAGE: ${onError}"));
             }),
             //Cerrar sesion
             CircleButton(true, Icons.exit_to_app, 20.0, Color.fromRGBO(255, 255, 255, 0.6), () => {
